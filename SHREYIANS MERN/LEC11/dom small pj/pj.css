@@ -1,0 +1,33 @@
+/* general styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+#img{
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    max-width: 100%;
+    height: auto;
+}
+
+/* design the button */
+button {
+    display: block;
+    margin: 20px auto 0;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}

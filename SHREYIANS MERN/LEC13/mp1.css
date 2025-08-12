@@ -1,0 +1,83 @@
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#main {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px; /* Increased gap for better spacing */
+    height: auto; /* Changed height to auto to fit content */
+}
+
+/* Container for the h3 and h5 elements */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Spans the full width of the main container */
+}
+
+h3 {
+    color: #1a237e;
+    margin: 0;
+}
+
+#h5 h5 {
+    margin: 0;
+}
+
+/* The Progress Bar Container */
+#part1 {
+    height: 30px; /* Fixed height for the progress bar track */
+    width: 100%;
+    background-color: #bbdefb;
+    border-radius: 20px;
+    overflow: hidden; /* This is crucial to keep the inner bar rounded */
+}
+
+/* The Progress Bar Itself */
+#part2 {
+    height: 100%;
+    width: 0%; /* Start at 0% width, JavaScript will increase this */
+    background-color: #43b743; /* A vibrant green */
+    transition: width 0.5s ease; /* Smooth transition for progress animation */
+}
+
+.buttonn {
+    display: flex;
+    justify-content: center; /* Center the button */
+    width: 100%;
+}
+
+button {
+    background-color: #43b743;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #2e8b2e;
+}
+
+button:active {
+    transform: scale(0.98);
+}

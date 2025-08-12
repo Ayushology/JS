@@ -1,0 +1,65 @@
+/* general styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    /* attractive background */
+}
+#card{
+    /* style it */
+   /* attractive background */
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: auto;
+    text-align: center;
+}
+#card img{
+    /* style it */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+button{
+    /* style it */
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 30px;
+}
+
+button:active{
+    /* style it */
+    transition: all 0.5s ease;
+    transform: scale(0.95);
+    background: linear-gradient(135deg, #5a6abf, #6b4d8c);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+}
+h5{
+    /* style it */
+    color: red;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+h2{
+    /* style it */
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doraemon Random Character</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* A light, soft blue background */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #0077c9;
+            margin-bottom: 20px;
+        }
+
+        #character-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            min-height: 250px; /* Prevents layout shift */
+        }
+
+        #generate-btn {
+            background-color: #0077c9;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #generate-btn:hover {
+            background-color: #005691;
+        }
+
+        #character-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Doraemon Character Generator</h1>
+        <img id="character-image" src="" alt="Doraemon character">
+        <p id="character-name"></p>
+        <button id="generate-btn">Generate Random Character</button>
+    </div>
+
+    <script>
+        // 1. Array of objects with Doraemon character image URLs
+        const characters = [
+            {
+                name: "Doraemon",
+                url: "https://upload.wikimedia.org/wikipedia/en/2/25/Doraemon_2016.png"
+            },
+            {
+                name: "Nobita Nobi",
+                url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e4/Nobita_Nobi_character.png/220px-Nobita_Nobi_character.png"
+            },
+            {
+                name: "Shizuka Minamoto",
+                url: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Shizuka_Minamoto.png/220px-Shizuka_Minamoto.png"
+            },
+            {
+                name: "Takeshi 'Gian' Goda",
+                url: "https://upload.wikimedia.org/wikipedia/en/f/f7/Takeshi_Goda.png"
+            },
+            {
+                name: "Suneo Honekawa",
+                url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Suneo_Honekawa_character.png/220px-Suneo_Honekawa_character.png"
+            }
+        ];
+
+        // 2. Get references to the HTML elements
+        const imageElement = document.getElementById('character-image');
+        const nameElement = document.getElementById('character-name');
+        const button = document.getElementById('generate-btn');
+
+        // 3. Function to generate and display a random image
+        function generateRandomImage() {
+            // Generate a random index based on the array length
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            
+            // Get the random character object
+            const randomCharacter = characters[randomIndex];
+
+            // Update the image source and alt text
+            imageElement.src = randomCharacter.url;
+            imageElement.alt = randomCharacter.name;
+            nameElement.textContent = randomCharacter.name;
+        }
+
+        // 4. Add an event listener to the button
+        button.addEventListener('click', generateRandomImage);
+
+        // Optional: Generate a random image on page load
+        window.onload = generateRandomImage;
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+h1{
+    /* font red */
+    color: red;
+}
+/* bcg black */
+body {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+#box{
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+    border-radius: 15px;
+    margin: 20px auto;
+    color: white;
+    text-align: center;
+    line-height: 200px; /* Center text vertically */
+    
+    transform: translateY(50px);
+}
+
+h2{
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    /* lower it */
+    transform: translateY(25px);
+}
+

@@ -1,0 +1,158 @@
+Your Code
+js
+Copy code
+document.body.addEventListener('click', function(event) {
+    const clickedButton = event.target;
+
+    if (clickedButton.classList.contains('add-friend-button')) {
+        const card = clickedButton.closest('.card');
+        if (card) {
+            const statusElement = card.querySelector('.stranger-status');
+            
+            if (statusElement.textContent === 'Stranger') {
+                statusElement.innerHTML = 'Friends';
+                statusElement.style.color = 'green';
+                clickedButton.innerHTML = 'Remove friend';
+            } else {
+                statusElement.innerHTML = 'Stranger';
+                statusElement.style.color = 'red';
+                clickedButton.innerHTML = 'Add Friend';
+            }
+        }
+    }
+});
+Step-by-Step Like a Story
+1. Putting a Guard on the <body>
+js
+Copy code
+document.body.addEventListener('click', function(event) {
+You’re hiring a security guard and telling them:
+
+“Stand at the body gate (the entire page content).”
+
+“Listen for click events anywhere inside.”
+
+This is event delegation — instead of hiring 100 guards (one for each button), you hire one for the whole building.
+
+2. Asking: “What exactly was clicked?”
+js
+Copy code
+const clickedButton = event.target;
+The guard says:
+
+“Someone clicked something. Here’s the exact thing they clicked — take a look.”
+
+event.target = the exact element that was clicked, e.g., a <button>.
+
+3. Checking if the click was on the right thing
+js
+Copy code
+if (clickedButton.classList.contains('add-friend-button')) {
+Guard:
+
+“Was this click on a friend button? (Check if it has the special .add-friend-button badge.)”
+
+If yes → continue.
+
+If no → do nothing.
+
+4. Finding the card the button belongs to
+js
+Copy code
+const card = clickedButton.closest('.card');
+Guard:
+
+“From this button, climb upward until you find its profile card container.”
+
+.closest() ensures you only work with the card where the click happened.
+
+5. Making sure the card exists
+js
+Copy code
+if (card) {
+Guard:
+
+“Yes, I found the card. Let’s proceed.”
+
+(Extra safety so the code doesn’t break if HTML changes.)
+
+6. Finding the status text inside the card
+js
+Copy code
+const statusElement = card.querySelector('.stranger-status');
+Guard:
+
+“Inside this card, find the little label that says ‘Stranger’ or ‘Friends’.”
+
+7. Toggling the status
+js
+Copy code
+if (statusElement.textContent === 'Stranger') {
+    statusElement.innerHTML = 'Friends';
+    statusElement.style.color = 'green';
+    clickedButton.innerHTML = 'Remove friend';
+} else {
+    statusElement.innerHTML = 'Stranger';
+    statusElement.style.color = 'red';
+    clickedButton.innerHTML = 'Add Friend';
+}
+Guard:
+
+If the label says “Stranger”:
+
+Change it to “Friends”
+
+Make it green for positive
+
+Change button text to “Remove friend”
+
+Otherwise (it says “Friends”):
+
+Change it back to “Stranger”
+
+Make it red
+
+Change button text to “Add Friend”
+
+Why This Works Well
+Event Delegation: Only 1 guard for the whole page, not 1 per button.
+
+Dynamic Targeting: event.target makes sure you know exactly what got clicked.
+
+Scoped Action: .closest('.card') makes sure you only change that one card’s status.
+
+Toggle Logic: Reads the current state from the DOM, changes accordingly.
+
+If you want, I can now draw you a diagram of:
+
+The click path from button → card → body.
+
+How the guard (addEventListener) catches it.
+
+How the code finds and updates the right elements
+
+document.body.addEventListener('click', function(event) {
+    const clickedButton = event.target;
+
+    // Check if the clicked element is a button with the specific class
+    if (clickedButton.classList.contains('add-friend-button')) {
+        // Find the parent card of the clicked button
+        const card = clickedButton.closest('.card');
+        if (card) {
+            // Find the status h5 within this specific card
+            const statusElement = card.querySelector('.stranger-status');
+            
+            // Toggle the status based on its current text
+            if (statusElement.textContent === 'Stranger') {
+                statusElement.innerHTML = 'Friends';
+                statusElement.style.color = 'green';
+                clickedButton.innerHTML = 'Remove friend';
+
+            } else {
+                statusElement.innerHTML = 'Stranger';
+                statusElement.style.color = 'red';
+                clickedButton.innerHTML = 'Add Friend';
+            }
+        }
+    }
+});

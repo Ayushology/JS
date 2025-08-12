@@ -1,0 +1,5 @@
+/* make the background black and font bold */
+body {
+  background-color: black;
+  font-weight: bold;
+}

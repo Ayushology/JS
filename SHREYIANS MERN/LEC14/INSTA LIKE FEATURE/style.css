@@ -1,0 +1,40 @@
+/* general code styles */
+body {
+    background-color: slateblue;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin-top: 20px;
+}
+
+.container{
+    height: 300px;
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px whitesmoke;
+    position: relative;
+    overflow: hidden;
+}
+.container img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.container i {
+    position: absolute;
+   
+    color: red;
+    font-size: 70px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform ease 0.4s;
+}
