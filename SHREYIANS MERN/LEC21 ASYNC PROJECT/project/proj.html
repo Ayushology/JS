@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub User Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background 0.5s ease, color 0.5s ease;
+            background: linear-gradient(135deg, #434193, #6f47b2, #a63f91);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            color: #d1d5db;
+        }
+        
+        body.light {
+            background: linear-gradient(135deg, #e3f2fd, #e8f4f9, #cfdef3);
+            background-size: 400% 400%;
+            animation: gradient-animation 15s ease infinite;
+            color: #333;
+        }
+
+        .container-wrapper {
+            max-width: 2xl;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.8s ease-in-out;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        body.light .card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(220, 220, 220, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-link {
+            transition: all 0.3s ease;
+        }
+
+        .profile-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+
+<body class="font-sans min-h-screen flex items-center justify-center p-4">
+    <!-- Theme Toggle Button -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="theme-toggle" class="p-3 rounded-full bg-white/20 backdrop-blur-sm text-gray-100 shadow-md transition-colors duration-300 hover:bg-white/30">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="w-full max-w-2xl space-y-8 container-wrapper">
+        <!-- Header -->
+        <header class="text-center">
+            <h1 class="text-5xl font-bold tracking-tight text-white drop-shadow-md">GitHub User Finder</h1>
+            <p class="text-gray-300 text-base mt-2 drop-shadow-sm">Search and view GitHub user profiles in style</p>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="search-container flex items-center gap-2 bg-white/20 rounded-lg p-2 focus-within:ring-2 focus-within:ring-white transition-all shadow-md">
+            <input type="text" placeholder="Enter GitHub username..."
+                class="usernameinp flex-1 bg-transparent outline-none text-white placeholder-gray-300 px-3 py-2 text-lg" />
+            <button class="search bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md text-sm font-semibold text-white transition-all shadow-lg hover:shadow-xl">
+                Search
+            </button>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="card rounded-xl p-8 flex flex-col sm:flex-row gap-6">
+            <div class="text-center w-full">
+                <p class="text-gray-300 text-lg">Enter a username to get started.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-gray-400 mt-10">
+            Built with ❤️ and Tailwind CSS
+        </footer>
+    </div>
+
+    <script>
+        const usernameInput = document.querySelector('.usernameinp');
+        const searchButton = document.querySelector('.search');
+        const profileCard = document.querySelector('.card');
+        const themeToggleButton = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // --- Theme Switcher Logic ---
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            body.classList.add('light');
+        }
+
+        themeToggleButton.addEventListener('click', () => {
+            body.classList.toggle('light');
+            if (body.classList.contains('light')) {
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // --- Helper Functions ---
+
+        function showMessage(message, isError = false) {
+            const textColor = isError ? 'text-red-400' : (body.classList.contains('light') ? 'text-gray-600' : 'text-gray-300');
+            profileCard.innerHTML = `
+                <div class="text-center w-full p-4">
+                    <p class="${textColor} text-lg">${message}</p>
+                </div>
+            `;
+        }
+
+        function showLoading() {
+            profileCard.innerHTML = `
+                <div class="flex flex-col items-center justify-center w-full p-8">
+                    <svg class="spinner h-10 w-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <p class="mt-4 text-lg text-gray-300">Fetching user data...</p>
+                </div>
+            `;
+        }
+
+        function renderProfile(user) {
+            const bioText = user.bio ? user.bio : "No bio available.";
+            const locationText = user.location ? user.location : "Location not specified.";
+            const nameText = user.name || user.login;
+            const companyText = user.company || "Not specified";
+            const blogLink = user.blog ? `<a href="${user.blog}" target="_blank" class="text-blue-400 hover:underline transition-colors">${user.blog}</a>` : 'Not specified';
+            
+            const isLight = body.classList.contains('light');
+            const textColor = isLight ? 'text-gray-800' : 'text-gray-100';
+            const statBg = isLight ? 'bg-gray-100' : 'bg-white/10';
+            const statText = isLight ? 'text-gray-600' : 'text-gray-300';
+            const linkColor = isLight ? 'text-blue-600' : 'text-blue-400';
+
+            const profileHTML = `
+                <div class="flex flex-col items-center sm:w-1/4">
+                    <img src="${user.avatar_url}" alt="${nameText}'s avatar" class="rounded-full w-24 h-24 sm:w-32 sm:h-32 border-2 border-white shadow-md transition-transform transform hover:scale-105" />
+                    <h2 class="text-2xl font-semibold mt-4 ${textColor}">${nameText}</h2>
+                    <p class="text-gray-400 text-sm">@${user.login}</p>
+                </div>
+                <div class="profile-info flex-1 space-y-4">
+                    <div>
+                        <p class="text-lg text-gray-300">Bio</p>
+                        <p class="text-gray-400 mt-1">${bioText}</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 text-sm font-medium">
+                        <div class="${statBg} p-3 rounded-md text-center shadow-inner">
+                            <p class="${statText}">Repos</p>
+                            <p class="${textColor} text-xl font-bold mt-1">${user.public_repos}</p>
+                        </div>
+                        <div class="${statBg} p-3 rounded-md text-center shadow-inner">
+                            <p class="${statText}">Followers</p>
+                            <p class="${textColor} text-xl font-bold mt-1">${user.followers}</p>
+                        </div>
+                        <div class="${statBg} p-3 rounded-md text-center shadow-inner">
+                            <p class="${statText}">Following</p>
+                            <p class="${textColor} text-xl font-bold mt-1">${user.following}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <p class="text-sm">
+                            <span class="font-semibold">Location:</span> ${locationText}
+                        </p>
+                        <p class="text-sm">
+                            <span class="font-semibold">Company:</span> ${companyText}
+                        </p>
+                        <p class="text-sm">
+                            <span class="font-semibold">Blog:</span> ${blogLink}
+                        </p>
+                        <a href="${user.html_url}" target="_blank"
+                           class="profile-link mt-4 inline-block bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md text-sm font-medium text-white shadow-lg">
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+            `;
+            profileCard.innerHTML = profileHTML;
+        }
+
+        searchButton.addEventListener('click', async () => {
+            const username = usernameInput.value.trim();
+            if (!username) {
+                showMessage('Please enter a GitHub username.', true);
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}`);
+                if (response.status === 404) {
+                    showMessage('User not found. Please try a different username.', true);
+                    return;
+                }
+                const user = await response.json();
+                renderProfile(user);
+            } catch (error) {
+                showMessage('An error occurred while fetching data. Please try again later.', true);
+                console.error('Error fetching data:', error);
+            }
+        });
+    </script>
+</body>
+</html>
