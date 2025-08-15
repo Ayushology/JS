@@ -32,3 +32,73 @@ orderFood().then(function(){
 // 3.)getcomments(postId) -> resolves with comments
 
 // Chain them together using .then() and log the final output
+
+
+function getUser(){
+    return new Promise(function(res,rej){
+     setTimeout(function(){
+           res({id: 1, name : "Ayush"})
+     },1000)
+    })
+}
+    function getPosts(userId){
+        return new Promise(function(res,rej){
+            setTimeout(function(){
+                res(["Tittle 1","Tittle 2"])
+            },1000)
+        })
+    }
+
+    function getcomments(postId){
+        return new Promise(function(res,rej){
+            setTimeout(function(){
+                res(["well done","good","marvellous"])
+            },1000)
+        })
+    }
+
+    getUser().then(function(data){
+        console.log(data);
+       return getPosts(data.id);
+    }).then(function(titles){
+        console.log(titles);
+        return getcomments("jdkasj");
+        
+    }).then(function(cmts){
+        console.log(cmts);
+        
+    }).finally(function(){
+        console.log("All data fetched");
+        
+    })
+
+
+    // 3. Fake API call
+
+    // task: 
+    // Write a function fake api call (endpoint) that:
+    // Accepts a string like users or posts
+    // resolves with some dummy data after a random delay (1-3 sec)
+
+    function FakeApiCall(endpoints){
+        const data = {
+            users : ["Ayush","Akanksha","kancha"],
+            posts : ["amazing","superb","wonderful"]
+        }
+        var delay = Math.random*2000 + 1000;
+        return new Promise(function(resol,rejec){
+            setTimeout(function(){
+                resol(data[endpoints])
+            },delay)
+        })
+    }
+
+
+    FakeApiCall("users").then(function(data){
+        console.log(data);
+        
+    })
+     FakeApiCall("posts").then(function(data){
+        console.log(data);
+        
+    })
